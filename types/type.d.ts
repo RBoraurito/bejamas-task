@@ -1,0 +1,1 @@
+type IconProps = import('./icons').IconProps
