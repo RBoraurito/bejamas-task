@@ -31,7 +31,6 @@ export default async function handler(
       resultArray[chunkIndex].push(item)
       return resultArray
     }, [])
-    console.log(data)
     res.status(200).json({
       pages: formattedData.length,
       data: formattedData[Number(page) - 1 || 0]
