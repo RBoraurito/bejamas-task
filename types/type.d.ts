@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 type FirebaseError = {
   type: string,
   message: unknown
@@ -22,6 +20,7 @@ interface Product {
   bestseller: boolean;
   featured: boolean;
   image: Img;
+  category: string;
 }
 
 interface FeaturedProduct extends Product {

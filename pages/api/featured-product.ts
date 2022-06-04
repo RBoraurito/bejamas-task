@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {db} from 'utils/db'
-import { collection, DocumentData, getDocs, query, where } from "firebase/firestore";
+import { collection, DocumentData, getDoc, getDocs, query, where } from "firebase/firestore";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +11,11 @@ export default async function handler(
     const productsRef = collection(db, "products");
     const q = query(productsRef, where('featured', '==', true))
     const snapshots = await getDocs(q);
-    const data = snapshots.docs[0].data()
+    const category = await getDoc(snapshots.docs[0].data().category)
+    const data = {
+      ...snapshots.docs[0].data(),
+      category: (category.data() as { name: string }).name
+    }
     res.status(200).json(data)
   } catch (error) {
     res.status(500).json({
