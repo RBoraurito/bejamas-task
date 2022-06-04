@@ -1,6 +1,6 @@
-type Error = {
+type FirebaseError = {
   type: string,
-  message: string
+  message: unknown
 }
 
 type IconProps = import('./icons').IconProps
