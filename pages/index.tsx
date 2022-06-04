@@ -1,8 +1,15 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header } from 'components/header'
+import { FeaturedProduct } from 'types/type';
 
-const Home: NextPage = () => {
+type HomeProps = {
+  featuredProduct: FeaturedProduct;
+}
+
+const Home: NextPage<HomeProps> = ({
+  featuredProduct
+}) => {
   return (
     <>
       <Header />
@@ -18,3 +25,13 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getStaticProps = async () => {
+
+  const featuredProduct = await fetch(`${process.env.API_URL}/featured-product`)
+  return {
+    props: {
+      featuredProduct: await featuredProduct.json() 
+    }
+  }
+}
