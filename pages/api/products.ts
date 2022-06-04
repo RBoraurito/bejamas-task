@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {db} from 'utils/db'
-import { collection, DocumentData, getDocs, query } from "firebase/firestore";
+import { collection, DocumentData, getDocs, query, where } from "firebase/firestore";
 
 type Data = {
   pages: number;
@@ -15,7 +15,7 @@ export default async function handler(
 
   try {
     const productsRef = collection(db, "products");
-    const q = query(productsRef)
+    const q = query(productsRef, where('featured', '==', false))
     const snapshots = await getDocs(q);
     const data = snapshots.docs.map((doc) => doc.data()).reduce<Array<DocumentData[]>>((resultArray, item, index) => { 
       const chunkIndex = Math.floor(index/6)
