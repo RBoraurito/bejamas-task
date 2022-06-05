@@ -1,7 +1,7 @@
-export const setQuery = (currentPage: number, filters: Array<string[]>) => {
+export const setQuery = (currentPage: number, filters: Filters) => {
   let query = '?'
   if(filters) {
-    query+= new URLSearchParams(filters).toString()
+    query+= new URLSearchParams(filters as unknown as string).toString()
   }
   if(currentPage){
     query+= filters ? `&page=${currentPage}` : `page=${currentPage}`

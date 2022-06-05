@@ -30,7 +30,7 @@ const Home: NextPage<HomeProps> = ({
       return;
     }
     const query = setQuery(currentPage, filters)
-    fetch(`${process.env.API_URL}/products${query ? `?${query}` : ''}`)
+    fetch(`${process.env.API_URL}/products${query || ''}`)
     .then(res => res.json())
     .then((res) => {
       console.log(res)

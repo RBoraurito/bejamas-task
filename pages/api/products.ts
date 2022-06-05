@@ -11,29 +11,43 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data|FirebaseError>
 ) {
-  const { page, priceRange, category, orderBy} = req.query
-
+  let { page, priceRange, category, sort} = req.query
+  
   try {
     const productsRef = collection(db, "products");
     const q = query(productsRef, where('featured', '==', false))
     const snapshots = await getDocs(q);
-    const data = await Promise.all(snapshots.docs
-    .map(async (doc) => ({
-      ...doc.data(),
-      category: ((await getDoc(doc.data().category)).data() as {name: string})?.name
-    })))
-    const formattedData = data
-    .reduce<Array<DocumentData[]>>((resultArray, item, index) => { 
+    let data = await Promise.all(snapshots.docs
+      .map(async (doc) => ({
+        ...doc.data(),
+        category: ((await getDoc(doc.data().category)).data() as {name: string})?.name
+      })))
+    if(sort) {
+      sort = (sort as string).split(',')
+      console.log(sort)
+      data = (data as Product[]).sort((a, b) => {
+        if(sort[1] === 'price') {
+          return sort[0] === 'ASC' ? 
+            a.price - b.price :
+            b.price - a.price 
+        }
+        return sort[0] === 'ASC' ? 
+            (a.name > b.name ? 1 : -1) :
+            a.name < b.name ? 1 : -1 
+      })
+    }
+    const formattedData = (data as Product[])
+    .reduce<Array<Product[]>>((resultArray, item, index) => { 
       const chunkIndex = Math.floor(index/6)
       if(!resultArray[chunkIndex]) {
         resultArray[chunkIndex] = [] // start a new chunk
       }
       resultArray[chunkIndex].push(item)
       return resultArray
-    }, [])
+    }, [])[Number(page) -1 | 0]
     res.status(200).json({
       pages: formattedData.length,
-      data: formattedData[Number(page) - 1 || 0]
+      data: formattedData
     })
   } catch (error) {
     res.status(500).json({
