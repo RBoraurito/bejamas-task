@@ -32,4 +32,17 @@ interface FeaturedProduct extends Product {
   }
 }
 
+type Categories = Array<{name: string}>
+
+type ProductResponse = {
+  pages: number;
+  data: Product[];
+}
+
+type Filters = {
+  sort: string[];
+  categories?: string[];
+  price?: string[];
+}
+
 type IconProps = import('./icons').IconProps
