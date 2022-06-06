@@ -7,7 +7,7 @@ import { Filters } from 'components/Filters'
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from 'utils/context';
 import { setQuery } from 'utils/setQuery';
-import { TheHeader } from 'components/Header'
+import { TheHeader } from './Header'
 
 type HomeProps = {
   featuredProduct: FeaturedProduct;

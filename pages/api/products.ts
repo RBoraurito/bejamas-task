@@ -54,7 +54,7 @@ export default async function handler(
       return resultArray
     }, [])
     
-    res.status(200).json({
+    res.status(200).setHeader('Access-Control-Allow-Origin', '*').json({
       pages: formattedData.length,
       data: formattedData[Number(page) -1 | 0]
     })
