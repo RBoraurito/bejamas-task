@@ -38,6 +38,11 @@ export const ProductList = ({
     }
     setFilters(newFilter)
   }
+  const [isLG, setIsLG] = useState(false)
+
+  useEffect(() => {
+    setIsLG(matchMedia('(min-width: 1024px)').matches)
+  }, [isLG])
 
   return (
     <section>
@@ -69,7 +74,7 @@ export const ProductList = ({
         </span>
       </div>
       <div className="lg:flex lg:space-x-12 lg:justify-between">
-        <Filters className="flex-shrink-0 hidden lg:block" categories={categories} />
+        {isLG && <Filters className="flex-shrink-0 hidden lg:block" categories={categories} />}
         <div className="">
           <div className="sm:grid sm:grid-cols-3 sm:gap-12 mb-12">
             {products.map(product => (
