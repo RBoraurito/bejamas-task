@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { ProductCard } from 'components/ProductCard'
 import { Pagination } from 'components/Pagination'
 import { Filters } from 'components/Filters'
@@ -63,7 +63,7 @@ export const ProductList = ({
           <span>
             Sort By
           </span>
-          <select name="orderby" id="orderby" className="text-black ml-3" onInput={(e) => handleTypeChange(e.target.value)}>
+          <select name="orderby" id="orderby" className="text-black ml-3" onInput={(e: ChangeEvent<HTMLSelectElement>) => handleTypeChange(e.target.value)}>
             <option value="price">
               Price
             </option>

@@ -12,7 +12,7 @@ export const FilterModal = ({
   const {setShowFilters, showFilters, setFilters} = useContext(Context);
 
   const handleClear = () => {
-    document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
+    (document.querySelectorAll('input[type=checkbox]') as NodeListOf<HTMLInputElement>).forEach((el) => el.checked = false)
     setFilters(initialState.filters)
     setShowFilters(false)
   }

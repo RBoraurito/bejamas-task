@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 import { Context } from 'utils/context';
 
 type FiltersProps = {
@@ -33,8 +33,8 @@ export const Filters = ({
     setFilters(newFilters)
   }
 
-  const handlePrice = (target: EventTarget, name: string) => {
-    document.querySelectorAll('input[type=checkbox].price-filter').forEach(el => el.checked = false)
+  const handlePrice = (target: HTMLInputElement, name: string) => {
+    (document.querySelectorAll('input[type=checkbox].price-filter') as NodeListOf<HTMLInputElement>).forEach(el => el.checked = false)
     target.checked = true
     setFilters({
       ...filters,
@@ -69,7 +69,7 @@ export const Filters = ({
             name={cat.name}
             id={cat.name + 'Check'}
             className="flex-shrink-0 w-6 h-6 border-2 border-black rounded-none mr-6 appearance-none"
-            onInput={(e) => handleFilter(e.target.checked, cat.name)}
+            onInput={(e: ChangeEvent<HTMLInputElement>) => handleFilter(e.target.checked, cat.name)}
           />
           <span className="checkmark absolute top-0 bottom-0 my-auto"></span>
           <label htmlFor={cat.name + 'Check'} className="capitalize text-darker text-parragraph-2">
@@ -87,7 +87,7 @@ export const Filters = ({
             type="checkbox"
             name={price[1]} id={price[1] + 'Check'}
             className="flex-shrink-0 w-6 h-6 border-2 border-black rounded-none mr-6 appearance-none price-filter"
-            onClick={(e) => handlePrice(e.target, price[0])}
+            onClick={(e) => handlePrice((e.target as HTMLInputElement), price[0])}
           />
           <span className="checkmark absolute top-0 bottom-0 my-auto"></span>
           <label htmlFor={price[1] + 'Check'} className="capitalize text-darker text-parragraph-2">
