@@ -30,10 +30,10 @@ const Home: NextPage<HomeProps> = ({
       return;
     }
     const query = setQuery(currentPage, filters)
+    console.log(query)
     fetch(`${process.env.API_URL}/products${query || ''}`)
     .then(res => res.json())
     .then((res) => {
-      console.log(res)
       setProducts((res as unknown as ProductResponse).data)
     })
   }, [currentPage, filters])

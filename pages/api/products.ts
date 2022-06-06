@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {db} from 'utils/db'
-import { collection, DocumentData, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, DocumentData, getDocs, query, where, WhereFilterOp } from "firebase/firestore";
 
 type Data = {
   pages: number;
@@ -11,20 +11,29 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data|FirebaseError>
 ) {
-  let { page, priceRange, category, sort} = req.query
+  let { page, price, categories, sort} = req.query
   
   try {
     const productsRef = collection(db, "products");
-    const q = query(productsRef, where('featured', '==', false))
+    let constraints = [where('featured', '==', false)]
+    if(categories){
+      categories = (categories as string).split(',')
+      constraints = [...constraints, where('category', 'in', categories)]
+    }
+    if(price) {
+      price = (price as string).split('|')
+      const formattedPrice = (price as string[]).map(p => p.split(';'))
+      console.log(formattedPrice)
+      const priceConstraints = formattedPrice.map((p: string[]) => where('price', (p[0] as WhereFilterOp), Number(p[1])))
+      constraints = [...constraints, ...priceConstraints ]
+    }
+    const q = query(productsRef, ...constraints)
     const snapshots = await getDocs(q);
-    let data = await Promise.all(snapshots.docs
-      .map(async (doc) => ({
-        ...doc.data(),
-        category: ((await getDoc(doc.data().category)).data() as {name: string})?.name
-      })))
+
+    let data = await Promise.all(snapshots.docs.map(async (doc) => doc.data()))
+
     if(sort) {
       sort = (sort as string).split(',')
-      console.log(sort)
       data = (data as Product[]).sort((a, b) => {
         if(sort[1] === 'price') {
           return sort[0] === 'ASC' ? 
@@ -44,12 +53,14 @@ export default async function handler(
       }
       resultArray[chunkIndex].push(item)
       return resultArray
-    }, [])[Number(page) -1 | 0]
+    }, [])
+    
     res.status(200).json({
       pages: formattedData.length,
-      data: formattedData
+      data: formattedData[Number(page) -1 | 0]
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       type: 'error',
       message: error

@@ -41,8 +41,8 @@ type ProductResponse = {
 
 type Filters = {
   sort: string[];
-  categories?: string[];
-  price?: string[];
+  categories: string[] | [];
+  price: string;
 }
 
 type IconProps = import('./icons').IconProps
