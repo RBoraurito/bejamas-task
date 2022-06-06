@@ -4,7 +4,7 @@ import { ShoppingCart } from 'components/icons/shopping-cart'
 import { Context } from 'utils/context'
 import { CartModal } from 'components/CartModal'
 
-export const Header = () => {
+export const TheHeader = () => {
   const { setShowCart, showCart, cart } = useContext(Context)
   return (
     <>
