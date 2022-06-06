@@ -24,7 +24,7 @@ export const Pagination = ({
 
   return (
     <div className="flex items-center space-x-3 w-fit mx-auto">
-      <button className="rotate-90" onClick={prev}>
+      <button className={`rotate-90 ${currentPage === 1 && 'hidden'}`} onClick={prev}>
         <Chevron width={16} height={8} />
       </button>
       <div className='inline-flex space-x-3'>
@@ -38,7 +38,7 @@ export const Pagination = ({
           </button>
         ))}
       </div>
-      <button className="-rotate-90" onClick={next}>
+      <button className={`-rotate-90 ${currentPage === Array(pages).fill('').length && 'hidden'}`} onClick={next}>
         <Chevron width={16} height={8} />
       </button>
     </div>
