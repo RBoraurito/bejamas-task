@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const addToCart = (product: Product) => {
     if(cart.some(art => art.name === product.name)) return;
     setCart([...cart, product])
+    setShowCart(true)
   }
 
   return (
