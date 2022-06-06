@@ -77,11 +77,11 @@ export const ProductList = ({
         {isLG && <Filters className="flex-shrink-0 hidden lg:block" categories={categories} />}
         <div className="">
           <div className="sm:grid sm:grid-cols-3 sm:gap-12 mb-12">
-            {products.map(product => (
+            {!!products.length && products.map(product => (
               <ProductCard key={product.name} product={product} />
             ))}
           </div>
-          <Pagination pages={pages} />
+          {!!pages && <Pagination pages={pages} />}
         </div>
       </div>
     </section>

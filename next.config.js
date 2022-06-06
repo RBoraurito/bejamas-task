@@ -7,7 +7,6 @@ const nextConfig = {
   images: {
     domains: ['images.pexels.com'],
   },
-  ignoreBuildErrors: true
 }
 
 module.exports = nextConfig

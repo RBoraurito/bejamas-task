@@ -56,7 +56,7 @@ export default async function handler(
     
     res.status(200).setHeader('Access-Control-Allow-Origin', '*').json({
       pages: formattedData.length,
-      data: formattedData[Number(page) -1 | 0]
+      data: formattedData[Number(page) -1 | 0] || []
     })
   } catch (error) {
     console.log(error)

@@ -35,6 +35,7 @@ const Home: NextPage<HomeProps> = ({
     .then(res => res.json())
     .then((res) => {
       setProducts((res as unknown as ProductResponse).data)
+      setPages((res as unknown as ProductResponse).pages)
     })
   }, [currentPage, filters])
 
