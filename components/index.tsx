@@ -1,13 +1,13 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { FeaturedProduct } from 'components/FeaturedProduct';
-import { Header } from 'components/Header'
 import { ProductList } from 'components/ProductList';
 import { FilterModal } from 'components/FilterModal';
 import { Filters } from 'components/Filters'
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from 'utils/context';
 import { setQuery } from 'utils/setQuery';
+import { Header } from 'components/Header'
 
 type HomeProps = {
   featuredProduct: FeaturedProduct;
