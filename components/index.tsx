@@ -1,7 +1,7 @@
-import type { NextPage } from 'next'
+import { NextPage } from 'next'
 import Head from 'next/head'
-import { Header } from 'components/Header'
 import { FeaturedProduct } from 'components/FeaturedProduct';
+import { Header } from 'components/Header'
 import { ProductList } from 'components/ProductList';
 import { FilterModal } from 'components/FilterModal';
 import { Filters } from 'components/Filters'
