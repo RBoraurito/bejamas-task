@@ -34,6 +34,15 @@ export const Filters = ({
   }
 
   const handlePrice = (target: HTMLInputElement, name: string) => {
+    debugger
+    if(filters.price === name) {
+      (document.querySelectorAll('input[type=checkbox].price-filter') as NodeListOf<HTMLInputElement>).forEach(el => el.checked = false)
+      setFilters({
+        ...filters,
+        price: ''
+      })
+      return;
+    }
     (document.querySelectorAll('input[type=checkbox].price-filter') as NodeListOf<HTMLInputElement>).forEach(el => el.checked = false)
     target.checked = true
     setFilters({
