@@ -25,6 +25,7 @@ export const FeaturedProduct = ({
           objectFit="cover"
           width={1290}
           height={553}
+          priority={true}
           src={featuredProduct.image.src}
           alt={featuredProduct.image.alt}
         />
