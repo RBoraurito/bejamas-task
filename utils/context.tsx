@@ -9,6 +9,9 @@ export const initialState: {
   setShowFilters(show: boolean): void,
   showCart: boolean;
   setShowCart(show: boolean): void;
+  cart: Product[],
+  addToCart(product: Product): void
+  clearCart(): void
 } = {
   currentPage: 1,
   setPage: (page:number ) => {},
@@ -21,7 +24,10 @@ export const initialState: {
   showFilters: false,
   setShowFilters: (show: boolean) => {},
   showCart: false,
-  setShowCart: (show: boolean) => {}
+  setShowCart: (show: boolean) => {},
+  cart: [],
+  addToCart: () => {},
+  clearCart: () => {}
 }
 
 export const Context = createContext(initialState)

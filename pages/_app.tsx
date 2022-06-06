@@ -8,17 +8,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [filters, setFilters] = useState<Filters>(initialState.filters)
   const [showFilters, setShowFilters] = useState<boolean>(initialState.showFilters)
   const [showCart, setShowCart] = useState<boolean>(initialState.showCart)
+  const [cart, setCart] = useState<Product[]>([])
+
+  const addToCart = (product: Product) => {
+    if(cart.some(art => art.name === product.name)) return;
+    setCart([...cart, product])
+  }
 
   return (
     <Context.Provider value={{
       currentPage: page,
-      setPage: setPage,
-      filters: filters,
-      setFilters: setFilters,
-      showFilters: showFilters,
-      setShowFilters: setShowFilters,
-      showCart: showCart,
-      setShowCart: setShowCart
+      setPage,
+      filters,
+      setFilters,
+      showFilters,
+      setShowFilters,
+      showCart,
+      setShowCart,
+      cart,
+      addToCart,
+      clearCart: () => setCart([])
     }}>
       <Component {...pageProps} />
     </Context.Provider>

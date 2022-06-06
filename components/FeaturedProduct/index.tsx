@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
 import { loader } from 'utils/imgLoader'
+import { Context } from 'utils/context'
 
 export const FeaturedProduct = ({
   featuredProduct
 }: {featuredProduct: FeaturedProduct}) => {
+  const { addToCart } = useContext(Context)
+
   return (
     <section>
       <div className="flex justify-between mb-0 sm:mb-7 items-center">
         <h1 className="text-h1 text-black mb-9 sm:mb-0 font-bold">
           {featuredProduct.name}
         </h1>
-        <button className="hidden sm:block text-white bg-black py-3 px-7 font-medium">
+        <button className="hidden sm:block text-white bg-black py-3 px-7 font-medium" onClick={() => addToCart(featuredProduct)}>
           ADD TO CART
         </button>
       </div>

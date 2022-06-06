@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
+import { Context } from 'utils/context';
 
 type ProductCardProps = {
   product: Product;
@@ -8,6 +9,8 @@ type ProductCardProps = {
 export const ProductCard = ({
   product
 }: ProductCardProps) => {
+  const { addToCart } = useContext(Context)
+
   return (
     <div className="lg:max-w-[282px] mb-8 sm:mb-0">
       <style jsx>{`
@@ -33,7 +36,10 @@ export const ProductCard = ({
           objectPosition="center"
           className='w-full'
         />
-        <button className="absolute bottom-0 bg-black py-2 inline-block w-full text-center text-white text-parragraph-2 font-medium uppercase invisible opacity-0 transition-all duration-300">
+        <button
+          className="absolute bottom-0 bg-black py-2 inline-block w-full text-center text-white text-parragraph-2 font-medium uppercase invisible opacity-0 transition-all duration-300"
+          onClick={() => addToCart(product)}
+        >
           Add to cart
         </button>
       </figure>
