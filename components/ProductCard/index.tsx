@@ -10,6 +10,12 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <div className="lg:max-w-[282px] mb-8 sm:mb-0">
+      <style jsx>{`
+        figure:hover button {
+          opacity: 1;
+          visibility: visible;
+        }
+      `}</style>
       <figure className="mb-2 relative">
         {product.bestseller && (
           <figcaption className="bg-white py-2 px-3 text-black text-parragraph-2 top-0 left-0 absolute">
@@ -27,7 +33,7 @@ export const ProductCard = ({
           objectPosition="center"
           className='w-full'
         />
-        <button className="absolute bottom-0 bg-black py-2 inline-block w-full text-center text-white text-parragraph-2 font-medium uppercase">
+        <button className="absolute bottom-0 bg-black py-2 inline-block w-full text-center text-white text-parragraph-2 font-medium uppercase invisible opacity-0 transition-all duration-300">
           Add to cart
         </button>
       </figure>
