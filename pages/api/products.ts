@@ -23,7 +23,6 @@ export default async function handler(
     if(price) {
       price = (price as string).split('|')
       const formattedPrice = (price as string[]).map(p => p.split(';'))
-      console.log(formattedPrice)
       const priceConstraints = formattedPrice.map((p: string[]) => where('price', (p[0] as WhereFilterOp), Number(p[1])))
       constraints = [...constraints, ...priceConstraints ]
     }
