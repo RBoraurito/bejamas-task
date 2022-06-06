@@ -23,13 +23,17 @@ export const Pagination = ({
   }
 
   return (
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center space-x-3 w-fit mx-auto">
       <button className="rotate-90" onClick={prev}>
         <Chevron width={16} height={8} />
       </button>
       <div className='inline-flex space-x-3'>
-        {Array(pages).map((btn, index) => (
-          <button key={index} className="text-h2 text-gray-200">
+        {Array(pages).fill('').map((btn, index) => (
+          <button
+            key={index}
+            className={`text-h2 ${currentPage === (index + 1) ? 'text-black font-semibold' : 'text-gray-200'}`}
+            onClick={() => setPage(index+1)}
+          >
             {index + 1}
           </button>
         ))}
